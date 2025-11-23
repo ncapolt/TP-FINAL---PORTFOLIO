@@ -1,13 +1,11 @@
-import ImageGallery from '@/components/ImageGallery'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Sidebar from '@/components/Sidebar'
+import LandingContent from '@/components/LandingContent'
 
 export default function Home() {
   return (
     <main>
-      <Header />
-      <ImageGallery />
-      <Footer />
+      <Sidebar />
+      <LandingContent />
     </main>
   )
 }
