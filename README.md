@@ -46,13 +46,73 @@ import Image from 'next/image'
 
 ## 🌐 Despliegue en Vercel
 
-1. Asegúrate de tener tu proyecto en GitHub
-2. Ve a [vercel.com](https://vercel.com) e inicia sesión
-3. Importa tu repositorio de GitHub
-4. Vercel detectará automáticamente que es un proyecto Next.js
-5. Haz clic en "Deploy"
+### Opción 1: Desde GitHub (Recomendado)
 
-¡Listo! Tu portfolio estará en línea en minutos.
+1. **Asegúrate de tener tu proyecto en GitHub:**
+   ```bash
+   git add .
+   git commit -m "Preparado para Vercel"
+   git push origin main
+   ```
+
+2. **Conecta con Vercel:**
+   - Ve a [vercel.com](https://vercel.com) e inicia sesión con tu cuenta de GitHub
+   - Haz clic en "Add New Project"
+   - Selecciona tu repositorio `TP-FINAL---PORTFOLIO`
+   - Vercel detectará automáticamente que es un proyecto Next.js
+   - Revisa la configuración (debería detectar automáticamente):
+     - Framework Preset: Next.js
+     - Build Command: `npm run build`
+     - Output Directory: `.next`
+     - Install Command: `npm install`
+   - Haz clic en "Deploy"
+
+3. **¡Listo!** Tu portfolio estará en línea en minutos. Vercel te dará una URL única.
+
+### Opción 2: Usando Vercel CLI
+
+1. **Instala Vercel CLI globalmente:**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Inicia sesión en Vercel:**
+   ```bash
+   vercel login
+   ```
+
+3. **Despliega el proyecto:**
+   ```bash
+   vercel
+   ```
+   - Sigue las instrucciones en la terminal
+   - Para producción, ejecuta: `vercel --prod`
+
+### Opción 3: Desde la interfaz web (sin GitHub)
+
+1. Ve a [vercel.com](https://vercel.com) e inicia sesión
+2. Haz clic en "Add New Project"
+3. Selecciona "Import Git Repository" o "Upload" si prefieres subir el código directamente
+4. Sigue los pasos de configuración
+
+### Configuración automática
+
+El proyecto ya incluye `vercel.json` con la configuración optimizada:
+- Framework: Next.js
+- Región: iad1 (US East)
+- Comandos de build y desarrollo configurados
+
+### Variables de entorno (si las necesitas)
+
+Si tu proyecto requiere variables de entorno:
+1. Ve a tu proyecto en Vercel Dashboard
+2. Settings → Environment Variables
+3. Agrega las variables necesarias
+4. Vuelve a desplegar
+
+### Actualizaciones automáticas
+
+Si conectaste desde GitHub, cada push a `main` desplegará automáticamente una nueva versión.
 
 ## 📝 Personalización
 
