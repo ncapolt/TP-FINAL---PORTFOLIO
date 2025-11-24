@@ -2,7 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [],
+    remotePatterns: [],
+    unoptimized: false,
+  },
+  // Configuración para mejorar compatibilidad con OneDrive
+  webpack: (config, { isServer }) => {
+    // Usar polling para watch en Windows/OneDrive
+    if (!isServer) {
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+      }
+    }
+    return config
   },
 }
 

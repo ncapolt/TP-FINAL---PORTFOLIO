@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 export default function Sidebar() {
+  const [servicesOpen, setServicesOpen] = useState(false)
   const [imageError, setImageError] = useState(false)
 
   return (
@@ -11,17 +12,16 @@ export default function Sidebar() {
       <div className="sidebar-content">
         <div className="profile-section">
           <div className="profile-image-container">
-            {!imageError ? (
-              <Image
-                src="/images/profile.jpg"
-                alt="Nico - Fotografía Automotriz"
-                width={200}
-                height={200}
-                className="profile-image"
-                priority
-                onError={() => setImageError(true)}
-              />
-            ) : (
+            <Image
+              src="/images/profile.jpeg"
+              alt="Nico - Fotografía Automotriz"
+              width={180}
+              height={180}
+              className="profile-image"
+              priority
+              onError={() => setImageError(true)}
+            />
+            {imageError && (
               <div className="profile-placeholder">N</div>
             )}
           </div>
@@ -30,13 +30,39 @@ export default function Sidebar() {
         <nav className="sidebar-nav">
           <a href="#sobre-mi" className="nav-item">SOBRE MI</a>
           <a href="#galeria" className="nav-item">GALERIA</a>
-          <a href="#servicios" className="nav-item">SERVICIOS +</a>
+          <div className="nav-item-wrapper">
+            <button 
+              className="nav-item nav-item-button"
+              onClick={() => setServicesOpen(!servicesOpen)}
+              aria-expanded={servicesOpen}
+            >
+              SERVICIOS {servicesOpen ? '−' : '+'}
+            </button>
+            {servicesOpen && (
+              <div className="dropdown-menu">
+                <a 
+                  href="#cobertura-eventos" 
+                  className="dropdown-item"
+                  onClick={() => setServicesOpen(false)}
+                >
+                  Cobertura en eventos
+                </a>
+                <a 
+                  href="#servicios-concesionarias" 
+                  className="dropdown-item"
+                  onClick={() => setServicesOpen(false)}
+                >
+                  Servicios para concesionarias
+                </a>
+              </div>
+            )}
+          </div>
           <a href="#contacto" className="nav-item">CONTACTO</a>
         </nav>
 
         <div className="social-links">
           <a 
-            href="https://instagram.com" 
+            href="https://instagram.com/nicoph__" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-icon"
@@ -58,7 +84,7 @@ export default function Sidebar() {
             </svg>
           </a>
           <a 
-            href="https://tiktok.com" 
+            href="https://www.tiktok.com/@nicoph__" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-icon"
@@ -100,13 +126,19 @@ export default function Sidebar() {
           border-radius: 50%;
           overflow: hidden;
           border: 3px solid rgba(255, 255, 255, 0.1);
+          position: relative;
         }
         .profile-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          /* Ajusta la posición: valores más altos (60-70%) muestran más de la parte inferior dentro del círculo */
+          object-position: center 65%;
         }
         .profile-placeholder {
+          position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
           display: flex;
@@ -116,6 +148,7 @@ export default function Sidebar() {
           color: #ffffff;
           font-size: 4rem;
           font-weight: 300;
+          z-index: 1;
         }
         .sidebar-nav {
           display: flex;
@@ -132,9 +165,61 @@ export default function Sidebar() {
           text-transform: uppercase;
           transition: opacity 0.3s ease;
           text-align: center;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          font-family: inherit;
         }
         .nav-item:hover {
           opacity: 0.7;
+        }
+        .nav-item-wrapper {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .nav-item-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .dropdown-menu {
+          margin-top: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          animation: slideDown 0.3s ease-out;
+          width: 100%;
+        }
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .dropdown-item {
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 0.85rem;
+          font-weight: 300;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          padding: 0.5rem 1rem;
+          text-align: center;
+          transition: all 0.3s ease;
+          opacity: 0.9;
+          border-left: 2px solid transparent;
+        }
+        .dropdown-item:hover {
+          opacity: 1;
+          border-left-color: #ffffff;
+          padding-left: 1.5rem;
         }
         .social-links {
           display: flex;
@@ -173,9 +258,25 @@ export default function Sidebar() {
             flex-direction: row;
             gap: 1.5rem;
             margin-top: 0;
+            flex-wrap: wrap;
           }
           .nav-item {
             font-size: 0.8rem;
+          }
+          .nav-item-wrapper {
+            position: relative;
+          }
+          .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.5rem;
+            background-color: #1a1a1a;
+            padding: 1rem;
+            border-radius: 4px;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
           }
           .social-links {
             flex-direction: row;
@@ -197,6 +298,14 @@ export default function Sidebar() {
           .nav-item {
             font-size: 0.7rem;
             letter-spacing: 1px;
+          }
+          .dropdown-menu {
+            min-width: 180px;
+            padding: 0.75rem;
+          }
+          .dropdown-item {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.75rem;
           }
         }
       `}</style>

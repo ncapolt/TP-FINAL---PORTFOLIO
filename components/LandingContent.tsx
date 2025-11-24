@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 export default function LandingContent() {
   return (
     <div className="landing-content">
@@ -9,22 +11,27 @@ export default function LandingContent() {
         <div className="content-wrapper">
           <div className="text-content">
             <p className="intro-text">
-              Tengo 17 años y soy un apasionado de los autos, la ingeniería y el diseño. 
-              Vengo de una familia de fotógrafos y cineastas, lo que me llevó naturalmente 
-              al mundo del carspotting. Empecé sacando fotos casuales de autos, 
-              subiéndolas a TikTok, y luego comencé a usar una cámara Nikon para eventos 
-              como Autoclásica en 2022.
+            Bienvenido! Soy Nicolás, un chico de 17 años, que desde chico,  me apasionan puramente los autos, la ingenieria y el diseño. Siempre me gusto el tema de fotografia, ya que vengo de una familia donde mi padre es fotografo hace varios años, y mi hermana esta terminando la carrera de direccion de cine. Debido a esto, cuando surgio el termino de "carspotters", me quise sumar. Primero empece sacando fotos casuales a los autos que me cruzaba en el dia a dia, hasta que me surgio la idea de romper el hielo y subir mi primer tiktok. A este le fue bien, y con el tiempo segui subiendo mis fotos! De esta manera me gusta a veces remontar para atras para ver mi progreso. Luego, en 2022, decidi sacar fotos con la Nikon en Autoclasica. Esto marco un punto de ida, y desde ahi que me dedico exclusivamente a sacar las fotos con ella. Con el tiempo perfeccione tecnicas, aprendi a editar y a mejorar mis herramientas. 
+
+
             </p>
             <p className="intro-text">
-              Desde entonces me dediqué exclusivamente a la fotografía de autos, 
-              perfeccionando mis técnicas y habilidades de edición. Ahora trabajo con 
-              concesionarios de alta gama y cubro diversos eventos automotrices como 
-              Stance Society o RuteadasARG.
+            Hoy en dia, trabajo principalmente con consecionarias de alta gama, pero tambien hago cobertura en distintos eventos de autos, como en Stance Society o RuteadasARG. 
             </p>
           </div>
           
-          <div className="image-placeholder">
-            <div className="diagonal-line"></div>
+          <div className="image-container">
+            <Image
+              src="/images/hero-image.jpeg"
+              alt="Nico - Fotografía Automotriz"
+              width={600}
+              height={750}
+              className="hero-image"
+              priority
+              style={{
+                objectFit: 'cover',
+              }}
+            />
           </div>
         </div>
       </section>
@@ -62,23 +69,19 @@ export default function LandingContent() {
           color: #333333;
           font-weight: 300;
         }
-        .image-placeholder {
+        .image-container {
           width: 100%;
           aspect-ratio: 4 / 5;
-          background-color: #e8e8e8;
           border-radius: 12px;
           position: relative;
           overflow: hidden;
+          background-color: #e8e8e8;
         }
-        .diagonal-line {
-          position: absolute;
+        .hero-image {
           width: 100%;
-          height: 2px;
-          background-color: #ff0000;
-          top: 50%;
-          left: 0;
-          transform: translateY(-50%) rotate(-45deg);
-          transform-origin: center;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 12px;
         }
         @media (max-width: 1024px) {
           .landing-content {
@@ -95,7 +98,7 @@ export default function LandingContent() {
             grid-template-columns: 1fr;
             gap: 2rem;
           }
-          .image-placeholder {
+          .image-container {
             aspect-ratio: 16 / 9;
           }
         }
