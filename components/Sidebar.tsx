@@ -1,14 +1,59 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 export default function Sidebar() {
   const [servicesOpen, setServicesOpen] = useState(false)
   const [imageError, setImageError] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024)
+      if (window.innerWidth > 1024) {
+        setMenuOpen(false)
+      }
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const handleNavClick = () => {
+    if (isMobile) {
+      setMenuOpen(false)
+    }
+  }
 
   return (
-    <aside className="sidebar">
+    <>
+      {isMobile && (
+        <>
+          <button 
+            className="mobile-menu-button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Menú"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {menuOpen ? (
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              ) : (
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              )}
+            </svg>
+          </button>
+          {menuOpen && (
+            <div 
+              className="mobile-overlay"
+              onClick={() => setMenuOpen(false)}
+            />
+          )}
+        </>
+      )}
+      <aside className={`sidebar ${isMobile && !menuOpen ? 'sidebar-hidden' : ''}`}>
       <div className="sidebar-content">
         <div className="profile-section">
           <div className="profile-image-container">
@@ -28,8 +73,8 @@ export default function Sidebar() {
         </div>
         
         <nav className="sidebar-nav">
-          <a href="#sobre-mi" className="nav-item">SOBRE MI</a>
-          <a href="#galeria" className="nav-item">GALERIA</a>
+          <a href="#sobre-mi" className="nav-item" onClick={handleNavClick}>SOBRE MI</a>
+          <a href="#galeria" className="nav-item" onClick={handleNavClick}>GALERIA</a>
           <div className="nav-item-wrapper">
             <button 
               className="nav-item nav-item-button"
@@ -43,21 +88,27 @@ export default function Sidebar() {
                 <a 
                   href="#cobertura-eventos" 
                   className="dropdown-item"
-                  onClick={() => setServicesOpen(false)}
+                  onClick={() => {
+                    setServicesOpen(false)
+                    handleNavClick()
+                  }}
                 >
                   Cobertura en eventos
                 </a>
                 <a 
                   href="#servicios-concesionarias" 
                   className="dropdown-item"
-                  onClick={() => setServicesOpen(false)}
+                  onClick={() => {
+                    setServicesOpen(false)
+                    handleNavClick()
+                  }}
                 >
                   Servicios para concesionarias
                 </a>
               </div>
             )}
           </div>
-          <a href="#contacto" className="nav-item">CONTACTO</a>
+          <a href="#contacto" className="nav-item" onClick={handleNavClick}>CONTACTO</a>
         </nav>
 
         <div className="social-links">
@@ -73,7 +124,7 @@ export default function Sidebar() {
             </svg>
           </a>
           <a 
-            href="https://wa.me/5491123456789" 
+            href="https://wa.me/5491160031958" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-icon"
@@ -97,6 +148,36 @@ export default function Sidebar() {
         </div>
       </div>
       <style jsx>{`
+        .mobile-menu-button {
+          position: fixed;
+          top: 1rem;
+          left: 1rem;
+          z-index: 1001;
+          background-color: #2a2a2a;
+          color: #ffffff;
+          border: none;
+          width: 48px;
+          height: 48px;
+          border-radius: 8px;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          transition: background-color 0.3s ease;
+        }
+        .mobile-menu-button:hover {
+          background-color: #3a3a3a;
+        }
+        .mobile-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 99;
+        }
         .sidebar {
           position: fixed;
           left: 0;
@@ -109,6 +190,10 @@ export default function Sidebar() {
           align-items: center;
           padding: 3rem 2rem;
           z-index: 100;
+          transition: transform 0.3s ease;
+        }
+        .sidebar-hidden {
+          transform: translateX(-100%);
         }
         .sidebar-content {
           display: flex;
@@ -236,80 +321,78 @@ export default function Sidebar() {
           opacity: 0.7;
         }
         @media (max-width: 1024px) {
+          .mobile-menu-button {
+            display: flex;
+          }
           .sidebar {
-            width: 100%;
-            height: auto;
-            position: relative;
-            padding: 2rem 1rem;
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            padding: 3rem 2rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
           }
           .sidebar-content {
-            flex-direction: row;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
           }
           .profile-section {
-            margin-top: 0;
+            margin-top: 2rem;
           }
           .profile-image-container {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
           }
           .sidebar-nav {
-            flex-direction: row;
-            gap: 1.5rem;
-            margin-top: 0;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+            width: 100%;
           }
           .nav-item {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            text-align: center;
           }
           .nav-item-wrapper {
             position: relative;
+            width: 100%;
           }
           .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 0.5rem;
-            background-color: #1a1a1a;
+            position: static;
+            transform: none;
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
             padding: 1rem;
             border-radius: 4px;
-            min-width: 200px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            box-shadow: none;
           }
           .social-links {
-            flex-direction: row;
-            margin-top: 0;
-            padding-bottom: 0;
+            flex-direction: column;
+            margin-top: auto;
+            padding-bottom: 2rem;
+            gap: 1.5rem;
           }
         }
         @media (max-width: 768px) {
           .sidebar {
-            padding: 1.5rem 1rem;
+            width: 100%;
+            padding: 2rem 1.5rem;
           }
           .profile-image-container {
-            width: 60px;
-            height: 60px;
+            width: 100px;
+            height: 100px;
           }
           .sidebar-nav {
-            gap: 1rem;
+            gap: 1.5rem;
           }
           .nav-item {
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-          }
-          .dropdown-menu {
-            min-width: 180px;
-            padding: 0.75rem;
-          }
-          .dropdown-item {
-            font-size: 0.75rem;
-            padding: 0.4rem 0.75rem;
+            font-size: 0.85rem;
           }
         }
       `}</style>
     </aside>
+    </>
   )
 }
 
