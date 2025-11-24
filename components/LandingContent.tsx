@@ -86,6 +86,19 @@ export default function LandingContent() {
           object-fit: cover;
           border-radius: 12px;
         }
+        @media (max-width: 768px) {
+          .image-container {
+            aspect-ratio: auto;
+            max-height: none;
+            height: auto;
+          }
+          .hero-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-height: 70vh;
+          }
+        }
         @media (max-width: 1024px) {
           .landing-content {
             margin-left: 0;
@@ -103,10 +116,6 @@ export default function LandingContent() {
             grid-template-columns: 1fr;
             gap: 2rem;
           }
-          .image-container {
-            aspect-ratio: 16 / 9;
-            max-height: none;
-          }
         }
         @media (max-width: 768px) {
           .hero-section {
@@ -123,6 +132,17 @@ export default function LandingContent() {
           }
           .text-content {
             gap: 1.5rem;
+          }
+          .image-container {
+            aspect-ratio: auto;
+            max-height: none;
+            height: auto;
+          }
+          .hero-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-height: 70vh;
           }
         }
       `}</style>
