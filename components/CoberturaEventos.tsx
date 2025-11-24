@@ -130,16 +130,20 @@ export default function CoberturaEventos() {
         }
         @media (max-width: 768px) {
           .services-section {
-            padding: 1.5rem;
+            padding: 1.5rem 1.5rem 1.5rem 4.5rem;
+            width: 100%;
           }
           .services-main-title {
-            font-size: 1.3rem;
+            font-size: clamp(1.2rem, 5vw, 1.3rem);
           }
           .services-subtitle {
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 6vw, 1.6rem);
           }
           .event-section {
             margin-bottom: 3rem;
+          }
+          .services-description {
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
           }
         }
       `}</style>

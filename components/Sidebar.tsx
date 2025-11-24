@@ -156,18 +156,25 @@ export default function Sidebar() {
           background-color: #2a2a2a;
           color: #ffffff;
           border: none;
-          width: 48px;
-          height: 48px;
-          border-radius: 8px;
+          width: 56px;
+          height: 56px;
+          border-radius: 12px;
           display: none;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-          transition: background-color 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .mobile-menu-button:hover {
           background-color: #3a3a3a;
+        }
+        .mobile-menu-button:active {
+          transform: scale(0.95);
+        }
+        .mobile-menu-button svg {
+          width: 28px;
+          height: 28px;
         }
         .mobile-overlay {
           position: fixed;
@@ -375,6 +382,16 @@ export default function Sidebar() {
           }
         }
         @media (max-width: 768px) {
+          .mobile-menu-button {
+            width: 56px;
+            height: 56px;
+            top: 0.75rem;
+            left: 0.75rem;
+          }
+          .mobile-menu-button svg {
+            width: 28px;
+            height: 28px;
+          }
           .sidebar {
             width: 100%;
             padding: 2rem 1.5rem;

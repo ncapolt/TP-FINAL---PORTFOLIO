@@ -207,13 +207,14 @@ export default function Contacto() {
         }
         @media (max-width: 768px) {
           .contact-section {
-            padding: 1.5rem;
+            padding: 1.5rem 1.5rem 1.5rem 4.5rem;
+            width: 100%;
           }
           .contact-main-title {
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 8vw, 2rem);
           }
           .contact-subtitle {
-            font-size: 1.3rem;
+            font-size: clamp(1.2rem, 4vw, 1.3rem);
             margin-bottom: 1.5rem;
           }
           .contact-item {
@@ -221,6 +222,9 @@ export default function Contacto() {
           }
           .contact-info {
             gap: 2rem;
+          }
+          .contact-intro {
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
           }
         }
       `}</style>

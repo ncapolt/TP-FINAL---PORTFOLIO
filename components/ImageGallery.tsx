@@ -166,7 +166,7 @@ export function Slider({ images }: SliderProps) {
           min-width: 300px;
           background-color: #e8e8e8;
           border-radius: 8px;
-          overflow: visible;
+          overflow: hidden;
           position: relative;
           display: flex;
           align-items: center;
@@ -178,6 +178,9 @@ export function Slider({ images }: SliderProps) {
         .slider-image-wrapper:hover {
           transform: scale(1.02);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .slider-image-wrapper:active {
+          transform: scale(0.98);
         }
         .slider-image {
           width: 100%;
@@ -336,13 +339,14 @@ export default function ImageGallery() {
         }
         @media (max-width: 768px) {
           .gallery {
-            padding: 1.5rem;
+            padding: 1.5rem 1.5rem 1.5rem 4.5rem;
+            width: 100%;
           }
           .gallery-section {
             margin-bottom: 3rem;
           }
           .section-title {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 4vw, 1.1rem);
           }
         }
       `}</style>

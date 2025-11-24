@@ -89,12 +89,14 @@ export default function LandingContent() {
         @media (max-width: 1024px) {
           .landing-content {
             margin-left: 0;
+            width: 100%;
           }
           .hero-section {
             padding: 2rem 2rem 2rem 2rem;
+            max-width: 100%;
           }
           .hero-title {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3rem);
             margin-bottom: 2rem;
           }
           .content-wrapper {
@@ -103,18 +105,24 @@ export default function LandingContent() {
           }
           .image-container {
             aspect-ratio: 16 / 9;
+            max-height: none;
           }
         }
         @media (max-width: 768px) {
           .hero-section {
-            padding: 1.5rem;
+            padding: 1.5rem 1.5rem 1.5rem 4.5rem;
           }
           .hero-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 10vw, 2.5rem);
             margin-bottom: 1.5rem;
+            line-height: 1.2;
           }
           .intro-text {
-            font-size: 1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            line-height: 1.7;
+          }
+          .text-content {
+            gap: 1.5rem;
           }
         }
       `}</style>
