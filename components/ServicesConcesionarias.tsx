@@ -60,9 +60,11 @@ export default function ServicesConcesionarias() {
           min-height: 100vh;
           background-color: #ffffff;
           padding: 4rem 4rem 4rem 6rem;
+          width: calc(100% - 280px);
         }
         .services-container {
-          max-width: 1400px;
+          max-width: 1600px;
+          width: 100%;
         }
         .services-main-title {
           font-size: 2rem;

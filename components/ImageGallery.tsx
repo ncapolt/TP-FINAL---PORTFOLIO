@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import ImageLightbox from './ImageLightbox'
 
 interface GallerySection {
   title: string
@@ -16,6 +17,8 @@ export function Slider({ images }: SliderProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [canGoPrev, setCanGoPrev] = useState(false)
   const [canGoNext, setCanGoNext] = useState(true)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const updateButtons = () => {
     if (scrollContainerRef.current) {
@@ -67,8 +70,30 @@ export function Slider({ images }: SliderProps) {
     return () => clearTimeout(timer)
   }, [images])
 
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
+    setLightboxOpen(true)
+  }
+
+  const closeLightbox = () => {
+    setLightboxOpen(false)
+  }
+
+  const nextLightbox = () => {
+    if (lightboxIndex < images.length - 1) {
+      setLightboxIndex(lightboxIndex + 1)
+    }
+  }
+
+  const prevLightbox = () => {
+    if (lightboxIndex > 0) {
+      setLightboxIndex(lightboxIndex - 1)
+    }
+  }
+
   return (
-    <div className="slider-container">
+    <>
+      <div className="slider-container">
       {canGoPrev && (
         <button className="slider-arrow slider-arrow-left" onClick={prevSlide} aria-label="Anterior">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +108,11 @@ export function Slider({ images }: SliderProps) {
       >
         <div className="slider-track">
           {images.map((image, index) => (
-            <div key={index} className="slider-image-wrapper">
+            <div 
+              key={index} 
+              className="slider-image-wrapper"
+              onClick={() => openLightbox(index)}
+            >
               <Image
                 src={image}
                 alt={`Imagen ${index + 1}`}
@@ -143,6 +172,12 @@ export function Slider({ images }: SliderProps) {
           align-items: center;
           justify-content: center;
           padding: 0;
+          cursor: pointer;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .slider-image-wrapper:hover {
+          transform: scale(1.02);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .slider-image {
           width: 100%;
@@ -200,7 +235,16 @@ export function Slider({ images }: SliderProps) {
           }
         }
       `}</style>
-    </div>
+      </div>
+      <ImageLightbox
+        images={images}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={closeLightbox}
+        onNext={nextLightbox}
+        onPrev={prevLightbox}
+      />
+    </>
   )
 }
 
@@ -263,9 +307,11 @@ export default function ImageGallery() {
           min-height: 100vh;
           background-color: #ffffff;
           padding: 4rem 4rem 4rem 6rem;
+          width: calc(100% - 280px);
         }
         .gallery-container {
-          max-width: 1400px;
+          max-width: 1600px;
+          width: 100%;
         }
         .gallery-section {
           margin-bottom: 4rem;

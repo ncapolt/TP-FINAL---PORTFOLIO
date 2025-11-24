@@ -93,9 +93,11 @@ export default function Contacto() {
           min-height: 100vh;
           background-color: #ffffff;
           padding: 4rem 4rem 4rem 6rem;
+          width: calc(100% - 280px);
         }
         .contact-container {
-          max-width: 1400px;
+          max-width: 1600px;
+          width: 100%;
         }
         .contact-main-title {
           font-size: 3rem;

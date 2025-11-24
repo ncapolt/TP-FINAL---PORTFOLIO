@@ -40,13 +40,15 @@ export default function LandingContent() {
           margin-left: 280px;
           min-height: 100vh;
           background-color: #ffffff;
+          width: calc(100% - 280px);
         }
         .hero-section {
           padding: 4rem 4rem 4rem 6rem;
-          max-width: 1400px;
+          max-width: 1600px;
+          width: 100%;
         }
         .hero-title {
-          font-size: 4rem;
+          font-size: clamp(2.5rem, 5vw, 4rem);
           font-weight: 700;
           color: #000000;
           margin-bottom: 3rem;
@@ -55,7 +57,7 @@ export default function LandingContent() {
         .content-wrapper {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 4rem;
+          gap: clamp(2rem, 4vw, 4rem);
           align-items: start;
         }
         .text-content {
@@ -64,7 +66,7 @@ export default function LandingContent() {
           gap: 2rem;
         }
         .intro-text {
-          font-size: 1.1rem;
+          font-size: clamp(1rem, 1.5vw, 1.1rem);
           line-height: 1.8;
           color: #333333;
           font-weight: 300;
@@ -76,6 +78,7 @@ export default function LandingContent() {
           position: relative;
           overflow: hidden;
           background-color: #e8e8e8;
+          max-height: 80vh;
         }
         .hero-image {
           width: 100%;
